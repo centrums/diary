@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <title>Diary</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'diary/style.css' %}">
+    </head>
+    
+    <body>
+        <form action='/logout/' method="POST">
+			{% csrf_token %}
+            <input type="submit" value="Logout"/>
+        </form>
+    
+        <h1>Dear Diary</h1>
+        <p>Hi {{owner}}!</p>
+        
+
+        <h2>Add new entry</h2>
+
+        <form action="{% url 'diary:add' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send</button>
+        </form>
+                        
+        {% if entries %}
+        <h2>My entries:</h2>
+            <ul>
+            {% for entry in entries %}
+                <li><a href="{% url 'diary:read' entry.id %}">{{ entry.title }} &nbsp; {{entry.pub_date}} </a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Please add your first diary entry</p>
+        {% endif %}
+                
+    </body>
+</html>
+

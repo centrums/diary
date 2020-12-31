@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <title>Diary</title>
+    </head>
+    
+    <body>
+        <form action='/logout/' method="POST">
+			{% csrf_token %}
+            <input type="submit" value="Logout"/>
+        </form>
+
+        <h1>Dear Diary</h1>
+        
+        <p>Are you sure you want to delete?</p>
+        <form action="{% url 'diary:confirm' %}" method="GET">
+            <input type="submit" value="Yes"/>
+        </form>
+        <br>
+        <form action="{% url 'diary:index' %}" method="GET">
+            <input type="submit" value="No"/>
+        </form>
+    </body>
+</html>
+

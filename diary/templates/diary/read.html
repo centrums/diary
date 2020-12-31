@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <title>Diary</title>
+    </head>
+    
+    <body>
+        <form action='/logout/' method="POST">
+			{% csrf_token %}
+            <input type="submit" value="Logout"/>
+        </form>
+        
+        <h1>Dear Diary</h1>
+        
+        {% if entry %}
+        <h2>{{entry.title}}</h2>
+        <table>
+		    <tr>
+		        <th style="text-align:left">Content: </th><td>{{entry.content}}</td>
+		    </tr>
+		    <tr>
+		        <th style="text-align:left"></th><td></td>
+		    </tr>
+		    <tr>
+		        <th style="text-align:left">Published: </th><td>{{entry.pub_date}}</td>
+		    </tr>
+		    <tr>
+		        <th style="text-align:left">Edited: </th><td>{{entry.edit_date}}</td>
+		    </tr>
+		</table>
+		<form action="{% url 'diary:edit' entry.id %}" method="POST">
+			{% csrf_token %}
+            <input type="submit" value="Edit"/>
+        </form>
+        <br>
+        <form action="{% url 'diary:delete' entry.id %}" method="GET">
+            <input type="submit" value="Delete"/>
+        </form>
+		{% else %}
+        <p>No entry is available.</p>
+        {% endif %}
+        
+        <br>
+        <a href="{% url 'diary:index' %}"> Back to home </a>
+    </body>
+</html>
+

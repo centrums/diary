@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <title>Diary</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'diary/style.css' %}">
+    </head>
+    
+    <body>
+        <form action='/logout/' method="POST">
+			{% csrf_token %}
+            <input type="submit" value="Logout"/>
+        </form>
+        
+        <h1>Dear Diary</h1>
+                
+        <form action="{% url 'diary:update' e_id %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send</button>
+        </form>        
+        <br>
+        <a href="{% url 'diary:index' %}"> Back to home </a>
+    </body>
+</html>
+
